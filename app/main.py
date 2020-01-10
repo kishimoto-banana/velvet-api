@@ -16,7 +16,10 @@ ja_stopword_url = 'http://svn.sourceforge.jp/svnroot/slothlib/CSharp/Version1/Sl
 response = requests.get(ja_stopword_url)
 ja_stopwords = [w for w in response.content.decode().split('\r\n') if w != '']
 en_stopwords = nltk.corpus.stopwords.words("english")
-my_stopwords =  ["の", ".com", "images", "id", "hatena", "ん", "fotolife", ".jpg", "plain", "image", "png", "さ", "at", "%", "n/", "www", "ら", ".s", "()"]
+my_stopwords = [
+    "の", ".com", "images", "id", "hatena", "ん", "fotolife", ".jpg", "plain",
+    "image", "png", "さ", "at", "%", "n/", "www", "ら", ".s", "()"
+]
 stopwords = ja_stopwords + en_stopwords + my_stopwords
 
 target_parts_of_speech = ('名詞')
@@ -36,7 +39,8 @@ def read_root():
 @app.get("/v1/prediction")
 def predict(url: str):
     main_text = scraper.scrape(url)
-    words = tokenizer.tokenize(main_text, tagger, stopwords, target_parts_of_speech)
+    words = tokenizer.tokenize(main_text, tagger, stopwords,
+                               target_parts_of_speech)
     hatebu_num = predictor.predict_hatebu(main_text, words)
-    
+
     return {"はてブ数": hatebu_num}

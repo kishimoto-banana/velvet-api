@@ -3,9 +3,10 @@ import MeCab
 import mojimoji
 
 
-def tokenize(sentence: str, tagger: MeCab.Tagger, stopwords: list, target_parts_of_speech: list) -> list:
+def tokenize(sentence: str, tagger: MeCab.Tagger, stopwords: list,
+             target_parts_of_speech: list) -> list:
     sentence = re.sub(r'https?://[\w/:%#\$&\?~\.=\+\-]+', '', sentence)
-        
+
     tokenized_sentence = []
     regex = re.compile(r'\d')
     regax_one = re.compile(r"^\w$")
@@ -14,12 +15,13 @@ def tokenize(sentence: str, tagger: MeCab.Tagger, stopwords: list, target_parts_
             (surface, feature) = chunk.split('\t')
             if feature.startswith(target_parts_of_speech):
                 if surface not in stopwords:
-                    if not regex.search(surface) and not regax_one.search(surface):
+                    if not regex.search(surface) and not regax_one.search(
+                            surface):
                         word = word_normiraze(surface)
                         tokenized_sentence.append(word)
     except Exception:
         return []
-                    
+
     return tokenized_sentence
 
 
