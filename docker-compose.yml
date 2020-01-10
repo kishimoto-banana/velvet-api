@@ -1,11 +1,11 @@
-version: '3'
+version: "3"
 services:
   api:
     build:
       context: .
       dockerfile: Dockerfile
     working_dir: /app
-    ports: 
+    ports:
       - 8080:5000
     volumes:
       - ./app:/app
