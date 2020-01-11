@@ -1,10 +1,6 @@
 import math
 import joblib
 import numpy as np
-from catboost import CatBoostRegressor
-from sklearn.decomposition import TruncatedSVD
-from sklearn.feature_extraction.text import CountVectorizer
-
 
 vectorizer = joblib.load("/models/vectorizer.pkl")
 svd = joblib.load("/models/svd.pkl")
@@ -18,7 +14,11 @@ def vectorize(main_text: str, words: list) -> np.array:
     char_nums = len(main_text)
     word_nums = len(words)
 
-    X = np.hstack([X_svd, np.array(char_nums).reshape(1, -1), np.array(word_nums).reshape(1, -1)])
+    X = np.hstack([
+        X_svd,
+        np.array(char_nums).reshape(1, -1),
+        np.array(word_nums).reshape(1, -1)
+    ])
     return X
 
 
