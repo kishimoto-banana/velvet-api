@@ -16,6 +16,6 @@ def read_root():
 def predict(url: str):
     main_text = scraper.scrape(url)
     words = tokenizer.tokenize(main_text)
-    hatebu_num = predictor.predict_hatebu(main_text, words)
+    hatebu_info = predictor.predict_hatebu(main_text, words)
 
-    return {"はてブ数": hatebu_num}
+    return hatebu_info

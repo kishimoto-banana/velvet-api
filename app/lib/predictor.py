@@ -4,6 +4,7 @@ import numpy as np
 
 vectorizer = joblib.load("/models/vectorizer.pkl")
 svd = joblib.load("/models/svd.pkl")
+classifier = joblib.load("/models/classifier.pkl")
 regressor = joblib.load('/models/regression.pkl')
 
 
@@ -22,9 +23,25 @@ def vectorize(main_text: str, words: list) -> np.array:
     return X
 
 
-def predict_hatebu(main_text: str, words: list) -> int:
-    X = vectorize(main_text, words)
-    pred = regressor.predict(X)
-    hatebu = math.floor(pred + 0.5)
+def predict_is_hatebu(X: np.array) -> bool:
+    pred = classifier.predict(X)
+    if pred == 1:
+        return True
+    else:
+        return False
 
-    return hatebu
+
+def predict_hatebu_num(X: np.array) -> int:
+    pred = regressor.predict(X)
+    hatebu_num = math.floor(pred + 0.5)
+    return hatebu_num
+
+
+def predict_hatebu(main_text: str, words: list) -> dict:
+    X = vectorize(main_text, words)
+
+    is_hatebu = predict_is_hatebu(X)
+    hatebu_num = predict_hatebu_num(X)
+
+    hatebu_info = {"is_hatebu": is_hatebu, "hatebu_num": hatebu_num}
+    return hatebu_info
