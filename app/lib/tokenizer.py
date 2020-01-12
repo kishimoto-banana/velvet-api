@@ -4,6 +4,8 @@ import MeCab
 import requests
 import mojimoji
 
+from .const import CannotTokenizeError
+
 nltk.download('stopwords')
 ja_stopword_url = 'http://svn.sourceforge.jp/svnroot/slothlib/CSharp/Version1/SlothLib/NLP/Filter/StopWord/word/Japanese.txt'
 response = requests.get(ja_stopword_url)
@@ -37,7 +39,7 @@ def tokenize(sentence: str) -> list:
                         word = word_normiraze(surface)
                         tokenized_sentence.append(word)
     except Exception:
-        return []
+        raise CannotTokenizeError
 
     return tokenized_sentence
 

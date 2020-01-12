@@ -2,6 +2,8 @@ import math
 import joblib
 import numpy as np
 
+from .const import CannotPredictError
+
 vectorizer = joblib.load("/models/vectorizer.pkl")
 svd = joblib.load("/models/svd.pkl")
 classifier = joblib.load("/models/classifier.pkl")
@@ -38,10 +40,14 @@ def predict_hatebu_num(X: np.array) -> int:
 
 
 def predict_hatebu(main_text: str, words: list) -> dict:
-    X = vectorize(main_text, words)
+    try:
+        X = vectorize(main_text, words)
 
-    is_hatebu = predict_is_hatebu(X)
-    hatebu_num = predict_hatebu_num(X)
+        is_hatebu = predict_is_hatebu(X)
+        hatebu_num = predict_hatebu_num(X)
 
-    hatebu_info = {"is_hatebu": is_hatebu, "hatebu_num": hatebu_num}
+        hatebu_info = {"is_hatebu": is_hatebu, "hatebu_num": hatebu_num}
+    except Exception:
+        raise CannotPredictError
+
     return hatebu_info
