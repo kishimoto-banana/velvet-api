@@ -11,7 +11,7 @@ regressor = joblib.load('/models/regression.pkl')
 
 
 def vectorize(main_text: str, words: list) -> np.array:
-    X_bow = vectorizer.transform([' '.join(words)])
+    X_bow = vectorizer.transform([" ".join(words)])
     X_svd = svd.transform(X_bow)
 
     char_nums = len(main_text)
