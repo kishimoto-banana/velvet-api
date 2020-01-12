@@ -1,5 +1,22 @@
 import re
+import nltk
+import requests
 
+# for tokenizer
+nltk.download("stopwords")
+ja_stopword_url = "http://svn.sourceforge.jp/svnroot/slothlib/CSharp/Version1/SlothLib/NLP/Filter/StopWord/word/Japanese.txt"
+response = requests.get(ja_stopword_url)
+ja_stopwords = [w for w in response.content.decode().split("\r\n") if w != ""]
+en_stopwords = nltk.corpus.stopwords.words("english")
+my_stopwords = [
+    "の", ".com", "images", "id", "hatena", "ん", "fotolife", ".jpg", "plain",
+    "image", "png", "さ", "at", "%", "n/", "www", "ら", ".s", "()"
+]
+stopwords = ja_stopwords + en_stopwords + my_stopwords
+target_parts_of_speech = ("名詞")
+dict_path = "/usr/local/lib/mecab/dic/mecab-ipadic-neologd/"
+
+# 有効なURLかどうか判定する正規表現
 url_regex = re.compile(r"https?://[\w/:%#\$&\?~\.=\+\-]+")
 
 
