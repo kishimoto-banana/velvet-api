@@ -76,11 +76,6 @@ def exception_handler(request: Request, exc: Exception):
     )
 
 
-@app.get("/")
-def read_root():
-    return {"Hello": "World"}
-
-
 @app.get("/v1/prediction")
 def predict(url: str):
     if not url_regex.search(url):
