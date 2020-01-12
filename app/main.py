@@ -12,10 +12,15 @@ from lib.const import (
     CannotTokenizeError,
     CannotPredictError,
     invalid_url_code,
+    invalid_url_msg,
     cannot_scrape_code,
+    cannot_scrape_msg,
     cannot_tokenize_code,
+    cannot_tokenize_msg,
     cannot_predict_code,
+    cannot_predict_msg,
     exception_code,
+    exception_msg,
 )
 
 app = FastAPI()
@@ -27,7 +32,7 @@ def invalid_url_handler(request: Request, exc: InvalidUrlError):
         status_code=400,
         content={
             "code": invalid_url_code,
-            "message": "Invalid URL"
+            "message": invalid_url_msg,
         },
     )
 
@@ -38,7 +43,7 @@ def cannot_scrape_handler(request: Request, exc: CannotScrapeError):
         status_code=500,
         content={
             "code": cannot_scrape_code,
-            "message": "Cannot scraping"
+            "message": cannot_scrape_msg,
         },
     )
 
@@ -49,7 +54,7 @@ def cannot_tokenize_handler(request: Request, exc: CannotTokenizeError):
         status_code=500,
         content={
             "code": cannot_tokenize_code,
-            "message": "Cannot tokenize"
+            "message": cannot_tokenize_msg,
         },
     )
 
@@ -60,7 +65,7 @@ def cannot_predict_handler(request: Request, exc: CannotPredictError):
         status_code=500,
         content={
             "code": cannot_predict_code,
-            "message": "Cannot predict"
+            "message": cannot_predict_msg,
         },
     )
 
@@ -71,14 +76,9 @@ def exception_handler(request: Request, exc: Exception):
         status_code=500,
         content={
             "code": exception_code,
-            "message": "Unexpected error"
+            "message": exception_msg,
         },
     )
-
-
-@app.get("/")
-def read_root():
-    return {"Hello": "World"}
 
 
 @app.get("/v1/prediction")
