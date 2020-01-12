@@ -25,7 +25,7 @@
 
 - リポジトリのclone
 - モデルファイルの配置
-  - 以下の4つのファイルをダウンロードして、 `models/` 以下の置いてくださ
+  - 以下の4つのファイルをダウンロードして、 `models/` 以下の置いてください
     - https://velvet-public.s3-ap-northeast-1.amazonaws.com/classifier.pkl
     - https://velvet-public.s3-ap-northeast-1.amazonaws.com/regression.pkl
     - https://velvet-public.s3-ap-northeast-1.amazonaws.com/svd.pkl
