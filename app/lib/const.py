@@ -37,11 +37,17 @@ class CannotPredictError(Exception):
     """はてブの予測に失敗したときに投げるエラー"""
 
 
-# error code
+# error code and msg
 invalid_url_code = 2001
+invalid_url_msg = "Invalid url"
 exception_code = 1000
+exception_msg = "Unexpected error"
 cannot_scrape_code = 1001
+cannot_scrape_msg = "Cannot scrape the article"
 cannot_tokenize_code = 1002
+cannot_tokenize_msg = "Cannot tokenize the sentence"
 cannot_predict_code = 1003
+cannot_predict_msg = "Cannot predict the hatebu"
 
+# はてなブログでページが存在していない場合のタイトル
 not_exist_title = "Entry is not found"
