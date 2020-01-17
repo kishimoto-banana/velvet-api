@@ -8,11 +8,14 @@ from lib import predictor
 from lib.const import (
     url_regex,
     InvalidUrlError,
+    NotHatenaError,
     CannotScrapeError,
     CannotTokenizeError,
     CannotPredictError,
     invalid_url_code,
     invalid_url_msg,
+    not_hatena_code,
+    not_hatena_msg,
     cannot_scrape_code,
     cannot_scrape_msg,
     cannot_tokenize_code,
@@ -33,6 +36,17 @@ def invalid_url_handler(request: Request, exc: InvalidUrlError):
         content={
             "code": invalid_url_code,
             "message": invalid_url_msg,
+        },
+    )
+
+
+@app.exception_handler(NotHatenaError)
+def not_hatena_handler(request: Request, exc: CannotScrapeError):
+    return JSONResponse(
+        status_code=500,
+        content={
+            "code": not_hatena_code,
+            "message": not_hatena_msg,
         },
     )
 
@@ -90,6 +104,8 @@ def predict(url: str):
         main_text = scraper.scrape(url)
         words = tokenizer.tokenize(main_text)
         hatebu_info = predictor.predict_hatebu(main_text, words)
+    except NotHatenaError:
+        raise NotHatenaError
     except CannotScrapeError:
         raise CannotScrapeError
     except CannotTokenizeError:
