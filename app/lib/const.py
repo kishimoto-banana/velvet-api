@@ -19,6 +19,9 @@ dict_path = "/usr/local/lib/mecab/dic/mecab-ipadic-neologd/"
 # 有効なURLかどうか判定する正規表現
 url_regex = re.compile(r"https?://[\w/:%#\$&\?~\.=\+\-]+")
 
+# はてなブログかどうか判定する文字列
+is_hatena_str = 'data-admin-domain="//blog.hatena.ne.jp"'
+
 
 # exception class
 class InvalidUrlError(Exception):
@@ -37,6 +40,10 @@ class CannotPredictError(Exception):
     """はてブの予測に失敗したときに投げるエラー"""
 
 
+class NotHatenaError(Exception):
+    """URLがはてなブログの記事でないときに投げるエラー"""
+
+
 # error code and msg
 invalid_url_code = 2001
 invalid_url_msg = "Invalid url"
@@ -48,6 +55,8 @@ cannot_tokenize_code = 1002
 cannot_tokenize_msg = "Cannot tokenize the sentence"
 cannot_predict_code = 1003
 cannot_predict_msg = "Cannot predict the hatebu"
+not_hatena_code = 1004
+not_hatena_msg = "Not hatena article"
 
 # はてなブログでページが存在していない場合のタイトル
 not_exist_title = "Entry is not found"
