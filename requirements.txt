@@ -4,7 +4,7 @@ chardet==3.0.4
 Click==7.0
 cssselect==1.1.0
 cycler==0.10.0
-fastapi==0.45.0
+fastapi==0.65.2
 graphviz==0.13.2
 h11==0.9.0
 html2text==2019.9.26
