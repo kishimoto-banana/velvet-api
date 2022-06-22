@@ -17,7 +17,7 @@ matplotlib==3.1.2
 mecab-python3==0.996.3
 mojimoji
 nltk==3.4.5
-numpy==1.18.0
+numpy==1.22.0
 pandas==0.25.3
 plotly==4.4.1
 pydantic==1.3
